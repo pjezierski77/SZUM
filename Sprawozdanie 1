@@ -1,0 +1,26 @@
+%% Sterowanie złożonymi układami mechanicznymi
+% Sprawozdanie numer 1 - czwartek 12:00-14:00
+% Jezierski Paweł 24941, Tomasz Piłat 33926
+
+
+clc;
+
+
+
+zolwik = rossubscriber('/turtle1/pose')  % stworzenie subskrybenta
+
+
+
+while (1)
+
+msg = receive(zolwik);% pobranie wiadomosci 
+
+plot(msg.X,msg.Y,'x'); % wykres współrzędnych żółwia z topica
+
+xlim([0 12])
+
+ylim([0 12])
+
+drawnow
+
+end
