@@ -1,0 +1,53 @@
+%% Sterowanie złożonymi układami mechanicznymi
+% Sprawozdanie numer 3 - czwartek 12:00-14:00
+% Jezierski Paweł 24941, Tomasz Piłat 33926
+
+x=0; %pozycja początkowa
+y=0;
+theta=0;
+w1 = 0.3; %prędkoś kół
+w2 = 0.2;
+R = 0.025;
+L = 0.15;
+
+x1 = x + (L/2)*cos(pi/2+theta); %pozycja dla rysownia kół
+y1 = y + (L/2)*sin(pi/2+theta);
+x2 = x - (L/2)*cos(pi/2+theta);
+y2 = y - (L/2)*sin(pi/2+theta);
+
+
+plot(x,y,'*k'); %rysowanie robota w pozycji pocątkowej
+axis equal
+hold on
+plot(x1,y1,'bo');
+hold on
+plot(x2,y2,'go');
+
+
+for i=0:0.1:2 %obliczanie trajektorii + rysowanie
+    xp = R*(w1 + w2)/2*cos(theta);
+    yp = R*(w1 + w2)/2*sin(theta);
+    thetap = R*(w1 - w2)/L;
+    
+    x = x + xp;
+    y = y + yp;
+    theta = theta + thetap;
+    
+    x1 = x + (L/2)*cos(pi/2+theta);
+    y1 = y + (L/2)*sin(pi/2+theta);
+    
+    x2 = x - (L/2)*cos(pi/2+theta);
+    y2 = y - (L/2)*sin(pi/2+theta);
+    
+    
+    plot(x,y,'*k');
+    axis equal
+    hold on
+    plot(x1,y1,'bo');
+    hold on
+    plot(x2,y2,'go');
+    
+    
+end
+
+
