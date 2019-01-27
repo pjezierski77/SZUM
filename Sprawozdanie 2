@@ -1,0 +1,28 @@
+%% Sterowanie złożonymi układami mechanicznymi
+% Sprawozdanie numer 2 - czwartek 12:00-14:00
+% Jezierski Paweł 24941, Tomasz Piłat 33926
+
+
+#include <ros.h>  //%Nagłówki niezbędne dla komunikacji z system ROS
+#include <std_msgs/Int16.h>
+
+ros::NodeHandle nh;   //%Tworzenie uchwytu modulu.
+std_msgs::Int16 str_int;
+
+ros::Publisher chatter("chatter",&str_int);  //%tworzenie publishera z nazwa kanalu"chatter" oraz zmienna do wysylanai wiadomośći
+int a = 0;
+
+void setup() 
+{
+  nh.initNode();       //%inicjalizacja modulu(node`a) od tego momentu Arduino rozpoznawane jest jako modul ROS
+  nh.advertise(chatter);
+}
+
+void loop() {
+
+  a = analogRead(A0);                        // %Wczytanie wartosci analogowej  
+  str_int.data = a;                          // % Uzupelnienie struktury
+  chatter.publish(&str_int);                  //%Wyslanie
+  nh.spinOnce();
+  delay(1000);
+}
